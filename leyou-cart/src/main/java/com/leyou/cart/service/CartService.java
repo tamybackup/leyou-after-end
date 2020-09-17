@@ -62,7 +62,7 @@ public class CartService {
         UserInfo userInfo = LoginInterceptor.getUserInfo();
 
         //判断用户是否有购物车记录
-        if (this.template.hasKey(KEY_PREFIX + userInfo.getId())) {
+        if (!this.template.hasKey(KEY_PREFIX + userInfo.getId())) {
             return null;
         }
         //获取用户的购物车记录
@@ -77,6 +77,6 @@ public class CartService {
         }
 
         //把List<Object>集合转化为List<Cart>集合
-        return cartsJson.stream().map(cartJson -> JsonUtils.parse(cartsJson.toString(), Cart.class)).collect(Collectors.toList());
+        return cartsJson.stream().map(cartJson -> JsonUtils.parse(cartJson.toString(), Cart.class)).collect(Collectors.toList());
     }
 }
